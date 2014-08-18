@@ -187,7 +187,7 @@ class views_handler_sort extends views_handler {
     // so that when the next pre_render (the one for fieldsets) runs, it gets
     // the flattened data.
     array_unshift($form['#pre_render'], 'views_ui_pre_render_flatten_data');
-    $form['expose']['#flatten'] = TRUE;
+    $form['expose'][ '#flatten'] = TRUE;
 
     $form['expose']['label'] = array(
       '#type' => 'textfield',

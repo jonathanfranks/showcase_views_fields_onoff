@@ -6,3 +6,4 @@ package = Administration
 dependencies[] = views
 
 files[] = includes/views/views_fields_onoff_plugin_style_table_onoff.inc
+files[] = includes/views/views_fields_onoff_form.inc

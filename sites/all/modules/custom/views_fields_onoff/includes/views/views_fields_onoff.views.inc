@@ -26,3 +26,20 @@ function views_fields_onoff_views_plugins() {
   );
   return $plugins;
 }
+
+/**
+ * Implements hook_views_data().
+ */
+function views_fields_onoff_views_data() {
+
+    $data['views']['views_fields_onoff_form'] = array(
+        'title' => t('On/Off Form'),
+        'help' => t('Display fields to be switched on and off.'),
+        'field' => array(
+            'handler' => 'views_fields_onoff_form',
+        ),
+    );
+
+
+  return $data;
+}
