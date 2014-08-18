@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function views_fields_onoff_views_api() {
+  return array(
+      'api' => 3,
+      'path' => drupal_get_path('module', 'views_fields_onoff') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function views_fields_onoff_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'views_exposed_form') {
+    if ($form_state['view']->display['default']->display_options['style_plugin'] === 'onoff_table' &&
+        $form_state['view']->display['default']->display_options['row_plugin'] == 'fields') {
+      // Gives the current state of the display mode, after we have altered it! $fields = $form_state['view']->display_handler->default_display->options['fields'];
+      $fields = $form_state['view']->display['default']->display_options['fields'];
+      $options = array();
+      $checked = array();
+
+      // Grab the fields_onoff values that have been submitted already
+      $checked_fields = array_key_exists('fields_onoff', $_GET) ? $_GET['fields_onoff'] : array();
+
+      // Now loop through the fields defined in the view
+      foreach ($fields as $field) {
+        if (!array_key_exists('exclude', $field) || !$field['exclude']) {
+          $id = $field['id'];
+          $label = array_key_exists('label', $field) ? $field['label'] : $id;
+          $options[$id] = $label;
+
+          // If the field is included on the querystring...
+          $check_me = !count($checked_fields) || array_key_exists($id, $checked_fields);
+          if ($check_me) {
+            // Check it because it has already been selected
+            $checked[$id] = TRUE;
+          }
+        }
+      }
+
+      // Form API to build the checkboxes
+      $form['fields_onoff'] = array(
+          '#type' => 'checkboxes',
+          '#title' => 'Show Fields',
+          '#description' => 'Select the fields you want to display',
+          '#options' => $options,
+          '#value' => $options, // I don't know why we have to include #options and #value, but it doesn't work if we don't...
+      );
+
+      // Have to use $form_state['input'] because setting the default values on the form field itself doesn't work.
+      // At all.
+      $form_state['input']['fields_onoff'] = $checked;
+    }
+  }
+}
+
+function views_fields_onoff_views_pre_view(&$view, &$display_id, &$args) {
+  // Grab the fields_onoff values that have been submitted already
+  $checked_fields = array_key_exists('fields_onoff', $_GET) ? $_GET['fields_onoff'] : array();
+  if (count($checked_fields)) {
+    foreach ($view->display_handler->default_display->options['fields'] as $key => $field) {
+      if (!array_key_exists($key, $checked_fields)) {
+        $view->display_handler->default_display->options['fields'][$key]['exclude'] = 1;
+      }
+    }
+  }
+}
