@@ -1,9 +1,8 @@
 name = Views Fields On/Off
 description = "Exposed form to allow users to switch fields in a View on or off."
 core = 7.x
-package = Administration
+package = Views
 
 dependencies[] = views
 
-files[] = includes/views/views_fields_onoff_plugin_style_table_onoff.inc
 files[] = includes/views/views_fields_onoff_form.inc
