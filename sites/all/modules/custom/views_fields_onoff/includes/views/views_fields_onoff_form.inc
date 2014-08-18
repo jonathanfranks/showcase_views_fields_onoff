@@ -7,8 +7,6 @@
 
 /**
  * Provides a handler that adds the form for Fields On/Off.
- *
- * @ingroup views_field_handlers
  */
 class views_fields_onoff_form extends views_handler_field {
   function can_expose() {
