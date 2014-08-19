@@ -69,6 +69,15 @@ class views_fields_onoff_form extends views_handler_field {
 
   function options_form(&$form, &$form_state) {
     $all_fields = $this->view->display_handler->get_field_labels();
+
+    // Remove any field that have been excluded from the display from the list.
+    foreach($all_fields as $key => $field) {
+      $exclude = $this->view->display_handler->handlers['field'][$key]->options['exclude'];
+      if ($exclude) {
+        unset($all_fields[$key]);
+      }
+    }
+
     // Offer to include only those fields that follow this one.
     $field_options = array_slice($all_fields, 0, array_search($this->options['id'], array_keys($all_fields)));
     $form['fields'] = array(
