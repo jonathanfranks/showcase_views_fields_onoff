@@ -25,6 +25,7 @@ class views_fields_onoff_form extends views_handler_field {
     $all_fields = $this->view->display_handler->get_field_labels();
 
     // Grab the fields_onoff values that have been submitted already
+    $onoff_submitted = array_key_exists('fields_onoff_hidden_submitted', $_GET);
     $checked_fields = array_key_exists('fields_onoff', $_GET) ? $_GET['fields_onoff'] : array();
 
     // Now loop through the fields defined in the view
@@ -35,7 +36,7 @@ class views_fields_onoff_form extends views_handler_field {
         $options[$id] = $label;
 
         // If the field is included on the querystring...
-        $check_me = !count($checked_fields) || array_key_exists($id, $checked_fields);
+        $check_me = (!count($checked_fields) && !$onoff_submitted) || array_key_exists($id, $checked_fields);
         if ($check_me) {
           // Check it because it has already been selected
           $checked[$id] = TRUE;
@@ -51,6 +52,13 @@ class views_fields_onoff_form extends views_handler_field {
         '#options' => $options,
         '#value' => $options, // I don't know why we have to include #options and #value, but it doesn't work if we don't...
     );
+
+      $form["fields_onoff_hidden_submitted"] = array(
+        '#type' => 'hidden',
+        '#default_value' => 1,
+      );
+
+
 
     // Have to use $form_state['input'] because setting the default values on the form field itself doesn't work.
     // At all.

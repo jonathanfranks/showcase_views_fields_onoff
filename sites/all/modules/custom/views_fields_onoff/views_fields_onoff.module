@@ -17,15 +17,28 @@ function views_fields_onoff_views_api() {
  * @param $args
  */
 function views_fields_onoff_views_pre_view(&$view, &$display_id, &$args) {
-  // Grab the fields_onoff values that have been submitted already
-  $checked_fields = array_key_exists('fields_onoff', $_GET) ? $_GET['fields_onoff'] : array();
-  if (count($checked_fields)) {
-    foreach ($view->display_handler->default_display->options['fields'] as $key => $field) {
-      if (!array_key_exists($key, $checked_fields)) {
-        // If there are fields specified, and this field is one of them, hide it!
-        $view->display_handler->default_display->options['fields'][$key]['exclude'] = 1;
+  if (array_key_exists('fields', $view->display_handler->default_display->options) &&
+      array_key_exists('views_fields_onoff_form', $view->display_handler->default_display->options['fields'])
+  ) {
+    // Grab the fields_onoff values that have been submitted already
+    $onoff_submitted = array_key_exists('fields_onoff_hidden_submitted', $_GET);
+    $checked_fields = array_key_exists('fields_onoff', $_GET) ? $_GET['fields_onoff'] : array();
+    // We need $onoff_submitted because if the form is submitted with no checkboxes checked, none of the fields_onoff
+    // values will be present, so it thinks this is a fresh view and all the columns should be checked.
+
+    $hideable_fields = $view->display_handler->default_display->options['fields']['views_fields_onoff_form']['fields'];
+
+    // So here if there are no checked fields but the form has been submitted, we want to turn off the field.
+    if (count($checked_fields) || $onoff_submitted) {
+      foreach ($view->display_handler->default_display->options['fields'] as $key => $field) {
+        if (!array_key_exists($key, $checked_fields) &&
+            array_key_exists($key, $hideable_fields) &&
+            $hideable_fields[$key]
+        ) {
+          // If there are fields specified, and this field is one of them, hide it!
+          $view->display_handler->default_display->options['fields'][$key]['exclude'] = 1;
+        }
       }
     }
   }
 }
-
