@@ -23,19 +23,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views_fields_onoff.module" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views_fields_onoff.module" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-4.296296" vertical-offset="262" max-vertical-offset="900">
+            <state line="48" column="9" selection-start="2246" selection-end="2246" vertical-scroll-proportion="0.64551425" vertical-offset="569" max-vertical-offset="1062">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views_fields_onoff_form.inc" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views_fields_onoff_form.inc" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/includes/views/views_fields_onoff_form.inc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="20" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.5295405" vertical-offset="694" max-vertical-offset="1926">
+            <state line="49" column="17" selection-start="1394" selection-end="1394" vertical-scroll-proportion="-14.296296" vertical-offset="496" max-vertical-offset="1926">
               <folding>
                 <element signature="e#7#65#0" expanded="true" />
               </folding>
@@ -59,8 +59,8 @@
         <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/includes/views/views_fields_onoff_plugin_style_table_onoff.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/includes/views/views_fields_onoff.views.inc" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.info" />
-        <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module" />
         <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/includes/views/views_fields_onoff_form.inc" />
+        <option value="$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module" />
       </list>
     </option>
   </component>
@@ -524,11 +524,15 @@
           <line>205</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module</url>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="82" />
+      <option name="time" value="83" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -878,19 +882,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-4.296296" vertical-offset="262" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/includes/views/views_fields_onoff_form.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="20" selection-start="1531" selection-end="1531" vertical-scroll-proportion="0.5295405" vertical-offset="694" max-vertical-offset="1926">
+        <state line="49" column="17" selection-start="1394" selection-end="1394" vertical-scroll-proportion="-14.296296" vertical-offset="496" max-vertical-offset="1926">
           <folding>
             <element signature="e#7#65#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/custom/views_fields_onoff/views_fields_onoff.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="9" selection-start="2246" selection-end="2246" vertical-scroll-proportion="0.64551425" vertical-offset="569" max-vertical-offset="1062">
+          <folding />
         </state>
       </provider>
     </entry>
