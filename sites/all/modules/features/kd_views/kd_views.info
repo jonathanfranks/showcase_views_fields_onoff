@@ -1,0 +1,14 @@
+name = KD Views
+description = Views
+core = 7.x
+package = KD
+dependencies[] = views_fields_onoff
+dependencies[] = views_ui
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = fieldy_switcher
+features[views_view][] = menu_items
+features[views_view][] = switcher_two
+features[views_view][] = with_new_format
+features[views_view][] = with_teasers
+project path = sites/all/modules/features

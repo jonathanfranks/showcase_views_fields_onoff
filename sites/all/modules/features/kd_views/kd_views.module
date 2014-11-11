@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the KD Views feature.
+ */
+
+include_once 'kd_views.features.inc';

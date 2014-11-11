@@ -22,7 +22,7 @@ class views_fields_onoff_form extends views_handler_field {
     $options = array();
     $checked = array();
 
-    $all_fields = $this->view->display_handler->get_field_labels();
+    $all_fields = $this->get_field_labels_no_relationship_names($this->view->display_handler);
 
     // Grab the fields_onoff values that have been submitted already
     $onoff_submitted = array_key_exists('fields_onoff_hidden_submitted', $_GET);
@@ -32,14 +32,16 @@ class views_fields_onoff_form extends views_handler_field {
     foreach ($fields as $field) {
       if ($field) {
         $id = $field; //$field['id'];
-        $label = $all_fields[$id];
-        $options[$id] = $label;
+        if (array_key_exists($id, $all_fields)) {
+          $label = $all_fields[$id];
+          $options[$id] = $label;
 
-        // If the field is included on the querystring...
-        $check_me = (!count($checked_fields) && !$onoff_submitted) || array_key_exists($id, $checked_fields);
-        if ($check_me) {
-          // Check it because it has already been selected
-          $checked[$id] = TRUE;
+          // If the field is included on the querystring...
+          $check_me = (!count($checked_fields) && !$onoff_submitted) || array_key_exists($id, $checked_fields);
+          if ($check_me) {
+            // Check it because it has already been selected
+            $checked[$id] = TRUE;
+          }
         }
       }
     }
@@ -58,8 +60,6 @@ class views_fields_onoff_form extends views_handler_field {
         '#default_value' => 1,
       );
 
-
-
     // Have to use $form_state['input'] because setting the default values on the form field itself doesn't work.
     // At all.
     // No idea why. Setting #default_value does absolutely nothing.
@@ -75,9 +75,45 @@ class views_fields_onoff_form extends views_handler_field {
     return $options;
   }
 
-  function options_form(&$form, &$form_state) {
-    $all_fields = $this->view->display_handler->get_field_labels();
+  /**
+   * Retrieve a list of fields for the current display with the
+   * relationship associated if it exists.
+   *
+   * @param $groupable_only
+   *  Return only an array of field labels from handler that return TRUE
+   *  from use_string_group_by method.
+   */
+  function get_field_labels_no_relationship_names($display_handler) {
+    $groupable_only = FALSE;
 
+    $options = array();
+    foreach ($display_handler->get_handlers('relationship') as $relationship => $handler) {
+      if ($label = $handler->label()) {
+        $relationships[$relationship] = $label;
+      }
+      else {
+        $relationships[$relationship] = $handler->ui_name();
+      }
+    }
+
+    foreach ($display_handler->get_handlers('field') as $id => $handler) {
+      if ($groupable_only && !$handler->use_string_group_by()) {
+        // Continue to next handler if it's not groupable.
+        continue;
+      }
+      if ($label = $handler->label()) {
+        $options[$id] = $label;
+      }
+      else {
+        $options[$id] = $handler->ui_name();
+      }
+    }
+    return $options;
+  }
+
+
+  function options_form(&$form, &$form_state) {
+    $all_fields = $this->get_field_labels_no_relationship_names($this->view->display_handler);
     // Remove any field that have been excluded from the display from the list.
     foreach($all_fields as $key => $field) {
       $exclude = $this->view->display_handler->handlers['field'][$key]->options['exclude'];

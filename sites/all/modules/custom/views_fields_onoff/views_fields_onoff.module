@@ -49,5 +49,7 @@ function views_fields_onoff_views_pre_view(&$view, &$display_id, &$args) {
         }
       }
     }
+    // And always hide the on/off field or it'll just show up empty
+    $view->display[$use_display_id]->handler->options['fields']['views_fields_onoff_form']['exclude'] = 1;
   }
 }
